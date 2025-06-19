@@ -66,4 +66,4 @@ function reproducirCancion() {
     cancion.play();
 };
 
-actualizarInfoCancion()
+actualizarInfoCancion();
