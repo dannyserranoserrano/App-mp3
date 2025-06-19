@@ -13,8 +13,9 @@ console.log(iconoControl);
 const botonReproducirPausar = document.getElementById('botonReproducirPausar');
 console.log(botonReproducirPausar);
 
-const botonAtras = document.querySelector('.controles button .atras');
-const botonsiguiente = document.querySelector('.controles button .siguiente');
+const botonAtras = document.querySelector('.controles .atras');
+console.log(botonAtras)
+const botonSiguiente = document.querySelector('.controles .siguiente');
 
 const canciones = [
     {
@@ -57,6 +58,10 @@ function actualizarInfoCancion() {
 };
 
 botonReproducirPausar.addEventListener('click', reproducirPausar);
+botonAtras.addEventListener('click', atrasCancion);
+botonSiguiente.addEventListener('click', siguienteCancion);
+
+
 
 function reproducirPausar() {
 
@@ -81,4 +86,22 @@ function pausarCancion() {
     cancion.pause();
 }
 
-actualizarInfoCancion();
+function atrasCancion() {
+    if (indiceCancionActual > 0) {
+        indiceCancionActual--;
+    } else {
+        indiceCancionActual = canciones.length - 1;
+    }
+    actualizarInfoCancion();
+    iconoControl.classList.add('bi-play-fill')
+};
+
+function siguienteCancion() {
+    if (indiceCancionActual < canciones.length - 1) {
+        indiceCancionActual++;
+    } else {
+        indiceCancionActual = 0;
+    }
+    actualizarInfoCancion();
+    iconoControl.classList.add('bi-play-fill')
+};
