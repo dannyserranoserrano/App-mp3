@@ -44,7 +44,7 @@ const canciones = [
     }
 ];
 
-let indiceCancionActual = 2;
+let indiceCancionActual = 0;
 
 function actualizarInfoCancion() {
     tituloCancion.textContent = canciones[indiceCancionActual].titulo;
@@ -56,14 +56,29 @@ function actualizarInfoCancion() {
     cancion.addEventListener('loadeddata', function () { });
 };
 
-function reproducirPausar() {
-    reproducirCancion();
-}
 botonReproducirPausar.addEventListener('click', reproducirPausar);
 
+function reproducirPausar() {
+
+    if (cancion.paused) {
+        reproducirCancion();
+        iconoControl.classList.add('bi-pause-fill')
+        iconoControl.classList.remove('bi-play-fill')
+
+    } else {
+        pausarCancion();
+        iconoControl.classList.remove('bi-pause-fill')
+        iconoControl.classList.add('bi-play-fill')
+    }
+};
 
 function reproducirCancion() {
     cancion.play();
+
 };
+
+function pausarCancion() {
+    cancion.pause();
+}
 
 actualizarInfoCancion();
