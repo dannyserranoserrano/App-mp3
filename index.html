@@ -6,29 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reproductor Mp3</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/img/play-circle-fill.svg">
 </head>
 
 <body>
-    <section class="reproductor-musica">
-        <h1>Titulo</h1>
-        <p>Nombre</p>
-        <audio id="cancion">
-            <source src="" type="audio/mpeg" />
-        </audio>
-        <input type="range" id="progreso" value="0" />
-        <div class="controles">
-            <button class="atras control">
-                <i class="bi bi-rewind-fill"></i>
-            </button>
-            <button id="botonReproducirPausar" class="boton-reproducir-pausar iconoControl">
-                <i class="bi bi-play-fill" id="iconoControl"></i>
-            </button>
-            <button class="siguiente control">
-                <i class="bi bi-fast-forward-fill"></i>
+    <div class="container">
+        <section class="reproductor-musica">
+            <h1>Titulo</h1>
+            <p>Nombre</p>
+            <audio id="cancion">
+                <source src="" type="audio/mpeg" />
+            </audio>
+            <input type="range" id="progreso" value="0" />
+            <div class="controles">
+                <button class="atras control">
+                    <i class="bi bi-rewind-fill"></i>
+                </button>
+                <button id="botonReproducirPausar" class="boton-reproducir-pausar iconoControl">
+                    <i class="bi bi-play-fill" id="iconoControl"></i>
+                </button>
+                <button class="siguiente control">
+                    <i class="bi bi-fast-forward-fill"></i>
+                </button>
+            </div>
+        </section>
+        <div class="biblioteca controles">
+            <h2>Tu Biblioteca</h2>
+            <ol id="listaReproduccion"> </ol>
+            <input type="file" id="inputMp3" accept=".mp3" multiple>
+            <button class="control" id="limpiar" value="Limpiar Biblioteca">
+                <i class="bi bi-trash"></i>
             </button>
         </div>
-    </section>
+    </div>
 
+    <script src="https://unpkg.com/music-metadata-browser/dist/music-metadata-browser.min.js"></script>
     <script src="app.js"></script>
 </body>
 
