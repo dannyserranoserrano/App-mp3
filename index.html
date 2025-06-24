@@ -33,10 +33,19 @@
         <div class="biblioteca controles">
             <h2>Tu Biblioteca</h2>
             <ol id="listaReproduccion"> </ol>
-            <input type="file" id="inputMp3" accept=".mp3" multiple>
-            <button class="control" id="limpiar" value="Limpiar Biblioteca">
-                <i class="bi bi-trash"></i>
-            </button>
+            <div>
+                <button class="control">
+                    <label id="folderMp3" for="inputMp3">
+                        <i class="bi bi-folder2-open"></i>
+                    </label>
+                </button>
+
+                <input type="file" id="inputMp3" accept=".mp3" multiple>
+                <button class="control" id="limpiar" value="Limpiar Biblioteca">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+
         </div>
     </div>
 

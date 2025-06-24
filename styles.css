@@ -147,7 +147,10 @@ body>* {
     box-shadow: 0 6px 10px rgba(228, 228, 228, 0.3);
     cursor: pointer;
     transition: all 0.1s linear;
+}
 
+#folderMp3 {
+    cursor: pointer;
 }
 
 .controles .control:hover {
@@ -160,4 +163,8 @@ body>* {
 
 .controles .iconoControl:hover {
     transform: scale(1.4);
+}
+
+#inputMp3 {
+    display: none;
 }
