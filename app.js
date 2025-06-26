@@ -19,7 +19,7 @@ let canciones = [];
 
 // Inicializar la lista de reproducción con canciones predeterminadas
 function actualizarInfoCancion() {
-    tituloCancion.textContent = canciones[indiceCancionActual]?.titulo;
+    tituloCancion.textContent = canciones[indiceCancionActual].titulo ? canciones[indiceCancionActual]?.titulo : 'Sin título';
     nombreArtista.textContent = canciones[indiceCancionActual]?.nombre;
     cancion.src = canciones[indiceCancionActual]?.fuente;
     cancion.addEventListener('loadeddata', function () { });
@@ -30,17 +30,26 @@ function actualizarListaReproduccion() {
     listaReproduccion.innerHTML = '';
     canciones.forEach((cancionObj, index) => {
         const li = document.createElement('li');
-        li.textContent = cancionObj.titulo;
+        li.classList.add('item-cancion');
+        //Nombre de la cancion
+        const spanNombre = document.createElement('span');
+        spanNombre.className = 'nombre-cancion';
+        spanNombre.textContent = cancionObj.titulo;
+        spanNombre.addEventListener('click', () => {
+            indiceCancionActual = index;
+            actualizarInfoCancion();
+            reproducirCancion();
+        });
 
         // Crear icono de eliminar (puedes usar una X o un icono de fontawesome/Bootstrap)
         const btnEliminar = document.createElement('span');
+        btnEliminar.className = 'btn-eliminar';
         btnEliminar.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
         </svg>`
-        btnEliminar.style.cursor = 'pointer';
-        btnEliminar.style.marginLeft = '10px';
+
 
         btnEliminar.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -55,7 +64,7 @@ function actualizarListaReproduccion() {
             actualizarInfoCancion();
             inputMp3.value = ''; // Resetea el input file
         });
-
+        li.appendChild(spanNombre);
         li.appendChild(btnEliminar);
         listaReproduccion.appendChild(li);
     });
@@ -94,19 +103,15 @@ inputMp3.addEventListener('change', async function (e) {
     //canciones = [];
 
     for (const file of files) {
-        let titulo = file.name.replace(/\.[^/.]+$/, ""); // Quitar la extensión del nombre del archivo
+        let titulo = file.name //.replace(/\.[^/.]+$/, ""); // Quitar la extensión del nombre del archivo
         let nombre = 'Desconocido';
         try {
             const metadata = await musicMetadata.parseBlob(file);
             if (metadata.common.title) { titulo = metadata.common.title }
             if (metadata.common.artist) { nombre = metadata.common.artist }
-            else { nombre = 'Desconocido' };
         } catch (error) {
             // Si falla la lectura de metadatos, se usan los valores por defecto
             console.warn(`No se pudieron leer metadatos de ${file.name}`);
-        }
-        if (file.name.toLowerCase() === 'nombre.mp3') {
-            titulo = '';
         }
 
         canciones.push({
